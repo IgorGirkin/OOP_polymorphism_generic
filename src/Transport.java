@@ -4,7 +4,7 @@ public abstract class Transport {
     private final String brand;
     private final String model;
     private final double engineVolume;
-    public boolean isMoving;
+    private boolean isMoving;
 
      public Transport(String brand, String model, double engineVolume, boolean isMoving) {
 
@@ -53,7 +53,7 @@ public abstract class Transport {
         return isMoving;
     }
 
-     public abstract void startMovement();
+    public abstract void startMovement();
 
     public abstract void stopMovement();
 

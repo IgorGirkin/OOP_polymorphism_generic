@@ -19,11 +19,11 @@ public class Car<DriverCategoryB> extends Transport implements Competing {
         this.maxSpeed = maxSpeed;
     }
 
+
     @Override
     public void startMovement() {
         if (!this.isMoving()) {
             System.out.println(getBrand() + " " + getModel() + " - начал движение");
-            this.isMoving = true;
         } else {
             System.out.println(getBrand() + " " + getModel() + " уже в движении");
         }
@@ -33,7 +33,6 @@ public class Car<DriverCategoryB> extends Transport implements Competing {
     public void stopMovement() {
         if (this.isMoving()) {
             System.out.println("Автомобиль: " + getBrand() + " " + getModel() + " - остановился");
-            this.isMoving = false;
         } else {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }

@@ -1,5 +1,6 @@
+import java.util.Objects;
 
-public abstract class Driver <T extends Transport> {
+public abstract class Driver {
     private final String fullName;
     private boolean hasDriverLicense;
     private int experience;
@@ -10,8 +11,8 @@ public abstract class Driver <T extends Transport> {
         this.experience = experience;
     }
 
-    public abstract void startMovement(T transport);
-    public abstract void stopMovement(T transport);
+    public abstract void startMovement(Transport transport);
+    public abstract void stopMovement(Transport transport);
     public abstract void refuel();
 
 
@@ -33,5 +34,18 @@ public abstract class Driver <T extends Transport> {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Driver driver = (Driver) o;
+        return hasDriverLicense == driver.hasDriverLicense && experience == driver.experience && Objects.equals(fullName, driver.fullName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, hasDriverLicense, experience);
     }
 }

@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Bus<DriverCategoryD> extends Transport implements Competing{
+public class Bus<DriverCategoryD> extends Transport implements Competing {
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
@@ -20,7 +20,6 @@ public class Bus<DriverCategoryD> extends Transport implements Competing{
     public void startMovement() {
         if (!this.isMoving()) {
             System.out.println(getBrand() + " "+ getModel() + "- начал движение");
-            this.isMoving = true;
         } else {
             System.out.println(getBrand() + " " + getModel() + " уже в движении");
         }
@@ -29,7 +28,6 @@ public class Bus<DriverCategoryD> extends Transport implements Competing{
     public void stopMovement() {
         if (this.isMoving()) {
             System.out.println("Автобус: " + getModel() + " - закончил движение.");
-            this.isMoving = false;
         } else {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }

@@ -1,17 +1,17 @@
-public class DriverCategoryD extends Driver<Bus>{
+public class DriverCategoryD extends Driver {
     public DriverCategoryD(String fullName, boolean hasDriverLicense, int experience) {
         super(fullName, hasDriverLicense, experience);
     }
 
     @Override
-    public void startMovement(Bus transport) {
+    public void startMovement(Transport transport) {
         System.out.println("Водитель " + getFullName() +", управляющий автобусом: " +
                 transport.getBrand()+" "+transport.getModel()+  ", начал движение!");
 
     }
 
     @Override
-    public void stopMovement(Bus transport) {
+    public void stopMovement(Transport transport) {
         System.out.println("Водитель " + getFullName() +", управляющий автобусом: " +
                 transport.getBrand()+" "+transport.getModel()+  ", остановился.");
 
