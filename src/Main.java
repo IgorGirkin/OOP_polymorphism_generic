@@ -37,23 +37,22 @@ public class Main {
 
 
         public static void main (String[]args){
-        Car ladaGranta = new Car<DriverCategoryB>("Lada", "Granta", 1.7, true);
-        Car audi = new Car<DriverCategoryB>("Audi", "A8 50 L TDI quattro", 3.0, false);
-        Car bmw = new Car<DriverCategoryB>("BMW", "Z8", 2.4, true,20,110.694,
+        Car<DriverCategoryB> ladaGranta = new Car<>("Lada", "Granta", 1.7, true);
+        Car<DriverCategoryB> audi = new Car<>("Audi", "A8 50 L TDI quattro", 3.0, false);
+        Car<DriverCategoryB> bmw = new Car<>("BMW", "Z8", 2.4, true,20,110.694,
                 250);
-            Car hyundai = new Car<DriverCategoryB>("Hyundai", "Avante", 1.6,
+        Car<DriverCategoryB> hyundai = new Car<>("Hyundai", "Avante", 1.6,
                     false, 96, 140, 260);
-   //
 
-        Bus pazik = new Bus<DriverCategoryD>("ПАЗ","ПАЗ-672",4.535,true);
-        Bus rafik = new Bus<DriverCategoryD>("РАФ", "RAF-2203", 1.75,false);
-        Bus liaz = new Bus<DriverCategoryD>("ЛиАЗ","ЛиАЗ-677",8.363,false);
-        Bus kravzik = new Bus<DriverCategoryD>("КАвЗ", "КАвЗ-685", 4.3, false);
+        Bus <DriverCategoryD>pazik = new Bus<>("ПАЗ","ПАЗ-672",4.535,true);
+        Bus<DriverCategoryD> rafik = new Bus<>("РАФ", "RAF-2203", 1.75,false);
+        Bus <DriverCategoryD>liaz = new Bus<>("ЛиАЗ","ЛиАЗ-677",8.363,false);
+        Bus <DriverCategoryD>kravzik = new Bus<>("КАвЗ", "КАвЗ-685", 4.3, false);
 
-        Trucks gazik = new Trucks<DriverCategoryC>("ГАЗ", "ГАЗ-53", 4.3, false);
-        Trucks zil = new Trucks<DriverCategoryC>("ЗИЛ","ЗиЛ-130",6.0,true);
-        Trucks belaz = new Trucks<DriverCategoryC>("БелАЗ","БелАЗ-7521",166.0,true);
-        Trucks kamaz = new Trucks<DriverCategoryC>("КамАЗ","КамАЗ-5511",10.85,false);
+        Trucks <DriverCategoryC> gazik = new Trucks<>("ГАЗ", "ГАЗ-53", 4.3, false);
+        Trucks <DriverCategoryC> zil = new Trucks<>("ЗИЛ","ЗиЛ-130",6.0,true);
+        Trucks <DriverCategoryC> belaz = new Trucks<>("БелАЗ","БелАЗ-7521",166.0,true);
+        Trucks <DriverCategoryC> kamaz = new Trucks<>("КамАЗ","КамАЗ-5511",10.85,false);
 
         DriverCategoryB jamshut = new DriverCategoryB("Джамшут", true, 25);
         DriverCategoryD petrovich = new DriverCategoryD("Петрович", true, 30);
