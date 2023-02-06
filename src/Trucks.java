@@ -1,16 +1,48 @@
 import java.util.Objects;
 
 public class Trucks <DriverCategoryC>extends Transport implements Competing {
+    public enum LoadCapacity {
+        N1(0.0f, 3.5f),
+        N2(3.5f, 12.0f),
+        N3(12.0f, 0);
+        private final float lowerBound;
+        private final float upperBound;
+
+        LoadCapacity(float lowerBound, float upperBound) {
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
+        }
+
+        public float getLowerBound() {
+            return lowerBound;
+        }
+
+        public float getUpperBound() {
+            return upperBound;
+        }
+
+        @Override
+        public String toString() {
+            if (upperBound == 0) {
+                return "Грузоподъемность с полной массой свыше: " + lowerBound + " тонн." ;
+            } else {
+                return "Грузопоъемность: от " + lowerBound + " тонн, до " + upperBound + " тонн." ;
+
+            }
+        }
+    }
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
+    private LoadCapacity loadCapacity;
     public Trucks(String brand, String model, double engineVolume, boolean isMoving) {
-        this(brand, model, engineVolume, true, 30.0, 120.0, 80.0);
+        this(brand, model, engineVolume, true, 30.0, 120.0, 80.0,
+                "Данных по транспортному средству недостаточно.");
     }
 
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  double pitStopTime, double bestLapTime, double maxSpeed) {
-        super(brand, model, engineVolume, isMoving);
+                  double pitStopTime, double bestLapTime, double maxSpeed, String type) {
+        super(brand, model, engineVolume, isMoving, type);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
@@ -31,6 +63,12 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
         } else {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }
+
+    }
+
+    @Override
+    public void printType() {
+        System.out.println("Типу грузоподъемности: "+loadCapacity.toString());
 
     }
 
@@ -74,6 +112,14 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(LoadCapacity loadCapacity) {
+        this.loadCapacity = loadCapacity;
     }
 
     @Override

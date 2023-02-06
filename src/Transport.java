@@ -5,8 +5,9 @@ public abstract class Transport {
     private final String model;
     private final double engineVolume;
     private boolean isMoving;
+     private String type;
 
-     public Transport(String brand, String model, double engineVolume, boolean isMoving) {
+     public Transport(String brand, String model, double engineVolume, boolean isMoving, String type) {
 
         if (brand == null || brand.isEmpty() || brand.isBlank()) {
 
@@ -27,12 +28,15 @@ public abstract class Transport {
             this.engineVolume = engineVolume;
         }
         this.isMoving = isMoving;
+        this.type = type;
     }
         public final String getBrand() {
         return brand;
     }
 
-
+    public String getType() {
+        return type;
+    }
 //   public void setIsMoving ( boolean isMoving){
 //            this.isMoving = isMoving;
 //        }
@@ -56,6 +60,10 @@ public abstract class Transport {
     public abstract void startMovement();
 
     public abstract void stopMovement();
+
+    public abstract void printType();
+
+
 
 
     @Override
