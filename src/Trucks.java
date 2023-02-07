@@ -1,51 +1,23 @@
 import java.util.Objects;
 
 public class Trucks <DriverCategoryC>extends Transport implements Competing {
-    public enum LoadCapacity {
-        N1(0.0f, 3.5f),
-        N2(3.5f, 12.0f),
-        N3(12.0f, 0);
-        private final float lowerBound;
-        private final float upperBound;
-
-        LoadCapacity(float lowerBound, float upperBound) {
-            this.lowerBound = lowerBound;
-            this.upperBound = upperBound;
-        }
-
-        public float getLowerBound() {
-            return lowerBound;
-        }
-
-        public float getUpperBound() {
-            return upperBound;
-        }
-
-        @Override
-        public String toString() {
-            if (upperBound == 0) {
-                return "Грузоподъемность с полной массой свыше: " + lowerBound + " тонн." ;
-            } else {
-                return "Грузопоъемность: от " + lowerBound + " тонн, до " + upperBound + " тонн." ;
-
-            }
-        }
-    }
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
-    private LoadCapacity loadCapacity;
-    public Trucks(String brand, String model, double engineVolume, boolean isMoving) {
+    private final TruckLoadCapacity truckLoadCapacity;
+    public Trucks(String brand, String model, double engineVolume, boolean isMoving,
+                  TruckLoadCapacity truckLoadCapacity) {
         this(brand, model, engineVolume, true, 30.0, 120.0, 80.0,
-                "Данных по транспортному средству недостаточно.");
+                truckLoadCapacity);
     }
 
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  double pitStopTime, double bestLapTime, double maxSpeed, String type) {
-        super(brand, model, engineVolume, isMoving, type);
+                  double pitStopTime, double bestLapTime, double maxSpeed, TruckLoadCapacity truckLoadCapacity) {
+        super(brand, model, engineVolume, isMoving);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
+        this.truckLoadCapacity = truckLoadCapacity;
     }
     @Override
     public void startMovement() {
@@ -63,12 +35,15 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
         } else {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }
-
     }
 
     @Override
     public void printType() {
-        System.out.println("Типу грузоподъемности: "+loadCapacity.toString());
+                        if (truckLoadCapacity== null) {
+            System.out.println("Данных по транспортному средству недостаточно");
+        } else
+        System.out.println("Грузовой автомобиль "+getModel()+". "+ truckLoadCapacity.toString());
+
 
     }
 
@@ -114,34 +89,8 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
         this.maxSpeed = maxSpeed;
     }
 
-    public LoadCapacity getLoadCapacity() {
-        return loadCapacity;
+    public TruckLoadCapacity getTruckLoadCapacity() {
+        return truckLoadCapacity;
     }
 
-    public void setLoadCapacity(LoadCapacity loadCapacity) {
-        this.loadCapacity = loadCapacity;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Trucks trucks = (Trucks) o;
-        return Double.compare(trucks.pitStopTime, pitStopTime) == 0 && Double.compare(trucks.bestLapTime, bestLapTime) == 0 && Double.compare(trucks.maxSpeed, maxSpeed) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), pitStopTime, bestLapTime, maxSpeed);
-    }
-
-    @Override
-    public String toString() {
-        return "Trucks{" +
-                "pitStopTime=" + pitStopTime +
-                ", bestLapTime=" + bestLapTime +
-                ", maxSpeed=" + maxSpeed +
-                '}';
-    }
 }
