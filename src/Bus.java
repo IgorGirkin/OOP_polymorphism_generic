@@ -1,23 +1,38 @@
 import java.util.Objects;
 
-public class Bus<DriverCategoryD> extends Transport implements Competing {
+public class Bus<T extends Driver> extends Transport implements Competing {
 
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
     private BusCapacity busCapacity;
-    public Bus(String brand, String model, double engineVolume, boolean isMoving,BusCapacity busCapacity) {
-        this(brand, model, engineVolume, true, 30.0, 120.0, 80.0,
-                busCapacity);
+    private T driver;
+    public Bus(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
+               BusCapacity busCapacity, T driver) {
+        this(brand, model, engineVolume, true,requiredDriverLicenseCategory, 30.0, 120.0,
+                80.0, busCapacity, driver);
     }
 
-    public Bus(String brand, String model, double engineVolume, boolean isMoving,
-               double pitStopTime, double bestLapTime, double maxSpeed, BusCapacity busCapacity) {
-        super(brand, model, engineVolume, isMoving);
+    public Bus(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
+               double pitStopTime, double bestLapTime, double maxSpeed, BusCapacity busCapacity, T driver) {
+        super(brand, model, engineVolume, isMoving,requiredDriverLicenseCategory);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
         this.busCapacity = busCapacity;
+        this.driver = driver;
+    }
+
+    public String getRequiredDriverLicenseCategory() {
+        if (driver instanceof DriverCategoryB) {
+            return "B";
+        } else if (driver instanceof DriverCategoryC) {
+            return "C";
+        } else if (driver instanceof DriverCategoryD) {
+            return "D";
+        } else {
+            return null;
+        }
     }
 
      @Override
@@ -46,6 +61,12 @@ public class Bus<DriverCategoryD> extends Transport implements Competing {
 
 
     }
+
+    @Override
+    public void runDiagnostics() { // диагностику проходить не могут
+        throw new UnsupportedOperationException("«Автобусы» диагностику проходить не могут");
+    }
+
 
     @Override
     public void pitStop() {

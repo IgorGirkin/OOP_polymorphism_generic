@@ -1,13 +1,12 @@
 public class DriverCategoryD extends Driver {
-    public DriverCategoryD(String fullName, boolean hasDriverLicense, int experience) {
-        super(fullName, hasDriverLicense, experience);
+
+    public DriverCategoryD(String fullName, boolean hasDriverLicense, int experience, String driverLicenseType) {
+        super(fullName, hasDriverLicense, experience, driverLicenseType);
     }
 
     @Override
     public void startMovement(Transport transport) {
-        System.out.println("Водитель " + getFullName() +", управляющий автобусом: " +
-                transport.getBrand()+" "+transport.getModel()+  ", начал движение!");
-
+        super.startMovement(transport);
     }
 
     @Override
@@ -22,5 +21,6 @@ public class DriverCategoryD extends Driver {
     public void refuel() {
            System.out.println("Водитель " + getFullName() +" заправил автобус.");
     }
+
 
 }

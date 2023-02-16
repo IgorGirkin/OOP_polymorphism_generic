@@ -1,23 +1,39 @@
 import java.util.Objects;
 
-public class Trucks <DriverCategoryC>extends Transport implements Competing {
+public class Trucks <T extends Driver>extends Transport implements Competing {
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
     private final TruckLoadCapacity truckLoadCapacity;
+    private T driver;
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  TruckLoadCapacity truckLoadCapacity) {
-        this(brand, model, engineVolume, true, 30.0, 120.0, 80.0,
-                truckLoadCapacity);
+                  String requiredDriverLicenseCategory,
+                  TruckLoadCapacity truckLoadCapacity,T driver) {
+        this(brand, model, engineVolume, true,requiredDriverLicenseCategory, 30.0, 120.0, 80.0,
+                truckLoadCapacity,driver);
     }
 
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  double pitStopTime, double bestLapTime, double maxSpeed, TruckLoadCapacity truckLoadCapacity) {
-        super(brand, model, engineVolume, isMoving);
+                  String requiredDriverLicenseCategory,
+                  double pitStopTime, double bestLapTime, double maxSpeed, TruckLoadCapacity truckLoadCapacity,T driver) {
+        super(brand, model, engineVolume, isMoving, requiredDriverLicenseCategory);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
         this.truckLoadCapacity = truckLoadCapacity;
+        this.driver = driver;
+    }
+
+    public String getRequiredDriverLicenseCategory() {
+        if (driver instanceof DriverCategoryB) {
+            return "B";
+        } else if (driver instanceof DriverCategoryC) {
+            return "C";
+        } else if (driver instanceof DriverCategoryD) {
+            return "D";
+        } else {
+            return null;
+        }
     }
     @Override
     public void startMovement() {
@@ -47,6 +63,11 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
 
     }
 
+//    @Override
+//    public void runDiagnostics() {
+//
+//    }
+
     @Override
     public void pitStop() {
         System.out.println(getBrand()+ " "+ getModel()+" делает пит стоп за - "+ pitStopTime +" секунд.");
@@ -64,6 +85,11 @@ public class Trucks <DriverCategoryC>extends Transport implements Competing {
         System.out.println(getBrand()+ " "+ getModel()+ " максимальная скорость -" + maxSpeed +" км/час.");
 
     }
+    @Override
+    public void runDiagnostics() {
+        System.out.println("Запуск диагностики на " + this.getBrand() + " " + this.getModel());
+    }
+
 
     public double getPitStopTime() {
         return pitStopTime;

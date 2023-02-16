@@ -1,15 +1,14 @@
-import static java.sql.DriverManager.getDriver;
-
 public class DriverCategoryB extends Driver  {
-    public DriverCategoryB(String fullName, boolean hasDriverLicense, int experience) {
-        super(fullName, hasDriverLicense, experience);
+
+
+    public DriverCategoryB(String fullName, boolean hasDriverLicense, int experience, String driverLicenseType) {
+        super(fullName, hasDriverLicense, experience, driverLicenseType);
     }
+
 
     @Override
     public void startMovement(Transport transport) {
-        System.out.println("Водитель " + getFullName() +", управляющий автомобилем: " +
-                transport.getBrand()+" "+transport.getModel()+  ", начал движение!");
-
+        super.startMovement(transport);
     }
 
     @Override

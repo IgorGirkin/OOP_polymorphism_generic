@@ -5,8 +5,10 @@ public abstract class Transport {
     private final String model;
     private final double engineVolume;
     private boolean isMoving;
+    private String requiredDriverLicenseCategory;
 
-     public Transport(String brand, String model, double engineVolume, boolean isMoving) {
+     public Transport(String brand, String model, double engineVolume, boolean isMoving,
+                      String requiredDriverLicenseCategory) {
 
         if (brand == null || brand.isEmpty() || brand.isBlank()) {
 
@@ -27,6 +29,7 @@ public abstract class Transport {
             this.engineVolume = engineVolume;
         }
         this.isMoving = isMoving;
+         this.requiredDriverLicenseCategory = requiredDriverLicenseCategory;
     }
         public final String getBrand() {
         return brand;
@@ -36,6 +39,10 @@ public abstract class Transport {
 //   public void setIsMoving ( boolean isMoving){
 //            this.isMoving = isMoving;
 //        }
+
+    public void setRequiredDriverLicenseCategory(String requiredDriverLicenseCategory) {
+        this.requiredDriverLicenseCategory = requiredDriverLicenseCategory;
+    }
 
     public final String getModel() {
         return model;
@@ -59,7 +66,10 @@ public abstract class Transport {
 
     public abstract void printType();
 
-
+    public abstract void runDiagnostics();
+       public String getRequiredDriverLicenseCategory() {
+        return requiredDriverLicenseCategory;
+    }
 
 
     @Override

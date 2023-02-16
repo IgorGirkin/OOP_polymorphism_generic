@@ -2,25 +2,28 @@ import java.util.Objects;
 
 import static java.sql.DriverManager.getDriver;
 
-public class Car<DriverCategoryB> extends Transport implements Competing {
+public class Car<T extends Driver> extends Transport implements Competing {
 
     private double pitStopTime;
     private double bestLapTime;
     private double maxSpeed;
     private final CarBody carBody;
+    private T driver;
 
-    public Car(String brand, String model, double engineVolume, boolean isMoving, CarBody carBody) {
-        this(brand, model, engineVolume, true, 30.0, 120.0, 80.0,
-                CarBody.SEDAN);
+    public Car(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
+               CarBody carBody, T driver) {
+        this(brand, model, engineVolume, true,requiredDriverLicenseCategory, 30.0, 120.0, 80.0,
+                CarBody.SEDAN, driver);
     }
 
-    public Car(String brand, String model, double engineVolume, boolean isMoving,
-               double pitStopTime, double bestLapTime, double maxSpeed,CarBody carBody) {
-        super(brand, model, engineVolume, isMoving);
+    public Car(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
+               double pitStopTime, double bestLapTime, double maxSpeed,CarBody carBody, T driver) {
+        super(brand, model, engineVolume, isMoving,requiredDriverLicenseCategory);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
         this.carBody = carBody;
+        this.driver = driver;
     }
 
 
@@ -30,6 +33,24 @@ public class Car<DriverCategoryB> extends Transport implements Competing {
             System.out.println(getBrand() + " " + getModel() + " - начал движение");
         } else {
             System.out.println(getBrand() + " " + getModel() + " уже в движении");
+        }
+    }
+
+        public String getRequiredDriverLicenseCategory() {
+        if (driver instanceof DriverCategoryB) {
+            return "B";
+        } else if (driver instanceof DriverCategoryC) {
+            return "C";
+        } else if (driver instanceof DriverCategoryD) {
+            return "D";
+        } else {
+            return null;
+        }
+    }
+    public void checkDriverLicense(String requiredCategory) throws DriverLicenseException {
+        String driverCategory = getRequiredDriverLicenseCategory();
+        if (driverCategory == null || !driverCategory.equals(requiredCategory)) {
+            throw new DriverLicenseException("Нет соответствующей категории прав");
         }
     }
 
@@ -52,6 +73,11 @@ public class Car<DriverCategoryB> extends Transport implements Competing {
     }
 
     @Override
+    public void runDiagnostics() {
+        System.out.println("Запуск диагностики на " + this.getBrand() + " " + this.getModel());
+    }
+
+    @Override
     public void pitStop() {
         System.out.println( getBrand()+ " "+ getModel()+" делает пит стоп за - "+ pitStopTime +" секунд.");
 
@@ -69,6 +95,13 @@ public class Car<DriverCategoryB> extends Transport implements Competing {
 
     }
 
+    public T getDriver() {
+        return driver;
+    }
+
+    public void setDriver(T driver) {
+        this.driver = driver;
+    }
 
     public double getPitStopTime() {
         return pitStopTime;
