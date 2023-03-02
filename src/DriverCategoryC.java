@@ -27,4 +27,9 @@ public class DriverCategoryC extends Driver {
 
     }
 
+    @Override
+    public String toString() {
+        return getFullName() + ", стаж вождения: "+getExperience()+ " лет, категория: "+getDriverLicenseType();
+
+    }
 }

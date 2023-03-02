@@ -1,5 +1,6 @@
 import java.util.Objects;
 
+import java.util.List;
 public class Bus<T extends Driver> extends Transport implements Competing {
 
     private double pitStopTime;
@@ -7,15 +8,15 @@ public class Bus<T extends Driver> extends Transport implements Competing {
     private double maxSpeed;
     private BusCapacity busCapacity;
     private T driver;
-    public Bus(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
-               BusCapacity busCapacity, T driver) {
-        this(brand, model, engineVolume, true,requiredDriverLicenseCategory, 30.0, 120.0,
-                80.0, busCapacity, driver);
+    public Bus(String brand, String model, double engineVolume, boolean isMoving,
+               BusCapacity busCapacity) {
+        this(brand, model, engineVolume, true, 30.0, 120.0,
+                80.0, busCapacity);
     }
 
-    public Bus(String brand, String model, double engineVolume, boolean isMoving,String requiredDriverLicenseCategory,
-               double pitStopTime, double bestLapTime, double maxSpeed, BusCapacity busCapacity, T driver) {
-        super(brand, model, engineVolume, isMoving,requiredDriverLicenseCategory);
+    public Bus(String brand, String model, double engineVolume, boolean isMoving,
+               double pitStopTime, double bestLapTime, double maxSpeed, BusCapacity busCapacity) {
+        super(brand, model, engineVolume, isMoving);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
@@ -35,7 +36,8 @@ public class Bus<T extends Driver> extends Transport implements Competing {
         }
     }
 
-     @Override
+
+    @Override
     public void startMovement() {
         if (!this.isMoving()) {
             System.out.println(getBrand() + " "+ getModel() + "- начал движение");
@@ -43,6 +45,7 @@ public class Bus<T extends Driver> extends Transport implements Competing {
             System.out.println(getBrand() + " " + getModel() + " уже в движении");
         }
     }
+
     @Override
     public void stopMovement() {
         if (this.isMoving()) {
@@ -51,7 +54,6 @@ public class Bus<T extends Driver> extends Transport implements Competing {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }
     }
-
     @Override
     public void printType() {
                 if (busCapacity== null) {
@@ -63,8 +65,21 @@ public class Bus<T extends Driver> extends Transport implements Competing {
     }
 
     @Override
-    public void runDiagnostics() { // диагностику проходить не могут
+    public boolean runDiagnostics() { // диагностику проходить не могут
         throw new UnsupportedOperationException("«Автобусы» диагностику проходить не могут");
+    }
+
+    @Override
+    public void performMaintenance() {
+        System.out.println("Механик " + getMechanics() + " проводит техническое обслуживание " +
+                getBrand() + " " + getModel());
+    }
+
+    @Override
+    public void fixTheCar() {
+        System.out.println("Механик " + getMechanics() + " ремонтирует " + getBrand() +
+                " " + getModel());
+
     }
 
 

@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Driver {
+public abstract class Driver<T extends Transport> {
     private final String fullName;
     private final boolean hasDriverLicense;
     private int experience;
     public String driverLicenseType;
+    private List<AutoMechanic> autoMechanics;
 
     public Driver(String fullName, boolean hasDriverLicense, int experience,
                   String driverLicenseType) {
@@ -12,6 +15,7 @@ public abstract class Driver {
         this.hasDriverLicense = hasDriverLicense;
         this.experience = experience;
         this.driverLicenseType = driverLicenseType;
+        this.autoMechanics = new ArrayList<>();
 
     }
 
@@ -31,19 +35,6 @@ public abstract class Driver {
             return;
         }
     }
-//        System.out.println("Водитель " + fullName + " начал движение на " +
-//                " " + transport.getBrand() + " " + transport.getModel());
-//        try {
-//            checkDriverLicense(transport.getRequiredDriverLicenseCategory());
-//        } catch (DriverLicenseException e) {
-//            System.out.println(e.getMessage());
-//            return;
-//        }
-//        public void checkDriverLicense(String requiredCategory) throws DriverLicenseException {
-//        if (driverLicenseType == null || !driverLicenseType.equals(requiredCategory)) {
-//            throw new DriverLicenseException("Нет соответствующей категории прав");
-//        }
-//    }
 
 
     public abstract void stopMovement(Transport transport);
@@ -58,9 +49,6 @@ public abstract class Driver {
         return hasDriverLicense;
     }
 
-//    public void setHasDriverLicense(boolean hasDriverLicense) {
-//        this.hasDriverLicense = hasDriverLicense;
-//    }
 
     public int getExperience() {
         return experience;
@@ -78,6 +66,13 @@ public abstract class Driver {
         this.driverLicenseType = driverLicenseType;
     }
 
+    public List<AutoMechanic> getAutoMechanics() {
+        return autoMechanics;
+    }
+
+    public void setAutoMechanics(List<AutoMechanic> autoMechanics) {
+        this.autoMechanics = autoMechanics;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,5 +85,11 @@ public abstract class Driver {
     @Override
     public int hashCode() {
         return Objects.hash(fullName, hasDriverLicense, experience, driverLicenseType);
+    }
+
+    @Override
+    public String toString() {
+        return fullName + ", стаж вождения " + experience + " лет, категоря: " + driverLicenseType;
+
     }
 }

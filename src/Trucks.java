@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Objects;
 
 public class Trucks <T extends Driver>extends Transport implements Competing {
@@ -6,17 +7,16 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
     private double maxSpeed;
     private final TruckLoadCapacity truckLoadCapacity;
     private T driver;
+
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  String requiredDriverLicenseCategory,
-                  TruckLoadCapacity truckLoadCapacity,T driver) {
-        this(brand, model, engineVolume, true,requiredDriverLicenseCategory, 30.0, 120.0, 80.0,
-                truckLoadCapacity,driver);
+                  TruckLoadCapacity truckLoadCapacity) {
+        this(brand, model, engineVolume, true,30.0, 120.0,
+                80.0, truckLoadCapacity);
     }
 
     public Trucks(String brand, String model, double engineVolume, boolean isMoving,
-                  String requiredDriverLicenseCategory,
-                  double pitStopTime, double bestLapTime, double maxSpeed, TruckLoadCapacity truckLoadCapacity,T driver) {
-        super(brand, model, engineVolume, isMoving, requiredDriverLicenseCategory);
+                  double pitStopTime, double bestLapTime, double maxSpeed, TruckLoadCapacity truckLoadCapacity) {
+        super(brand, model, engineVolume, isMoving);
         this.pitStopTime = pitStopTime;
         this.bestLapTime = bestLapTime;
         this.maxSpeed = maxSpeed;
@@ -35,6 +35,7 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
             return null;
         }
     }
+
     @Override
     public void startMovement() {
         if (!this.isMoving()) {
@@ -44,6 +45,7 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
             System.out.println(getBrand() + " " + getModel() + " уже в движении");
         }
     }
+
     @Override
     public void stopMovement() {
         if (this.isMoving()) {
@@ -52,7 +54,6 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
             System.out.println(getBrand() + " " + getModel() + " стоит.");
         }
     }
-
     @Override
     public void printType() {
                         if (truckLoadCapacity== null) {
@@ -63,11 +64,11 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
 
     }
 
+
 //    @Override
 //    public void runDiagnostics() {
 //
 //    }
-
     @Override
     public void pitStop() {
         System.out.println(getBrand()+ " "+ getModel()+" делает пит стоп за - "+ pitStopTime +" секунд.");
@@ -85,9 +86,22 @@ public class Trucks <T extends Driver>extends Transport implements Competing {
         System.out.println(getBrand()+ " "+ getModel()+ " максимальная скорость -" + maxSpeed +" км/час.");
 
     }
+
     @Override
-    public void runDiagnostics() {
-        System.out.println("Запуск диагностики на " + this.getBrand() + " " + this.getModel());
+    public boolean runDiagnostics() {
+        return Math.random()>0.8;
+
+    }
+    @Override
+    public void performMaintenance() {
+        System.out.println("Механик " + getMechanics() + " проводит техническое обслуживание грузового автомобиля" +
+               getBrand() + " " + getModel());
+    }
+
+    @Override
+    public void fixTheCar() {
+        System.out.println("Механик " + getMechanics() + " ремонтирует " + getBrand() +
+                " " + getModel());
     }
 
 

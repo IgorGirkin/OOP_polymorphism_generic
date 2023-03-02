@@ -1,14 +1,18 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Transport {
+public abstract class Transport implements Competing {
     private final String brand;
     private final String model;
     private final double engineVolume;
     private boolean isMoving;
     private String requiredDriverLicenseCategory;
+    private List<AutoMechanic> mechanics;
+    private final List<Driver> drivers = new ArrayList<>();
 
-     public Transport(String brand, String model, double engineVolume, boolean isMoving,
-                      String requiredDriverLicenseCategory) {
+    public Transport(String brand, String model, double engineVolume, boolean isMoving) {
 
         if (brand == null || brand.isEmpty() || brand.isBlank()) {
 
@@ -30,6 +34,7 @@ public abstract class Transport {
         }
         this.isMoving = isMoving;
          this.requiredDriverLicenseCategory = requiredDriverLicenseCategory;
+        this.mechanics = new ArrayList<>();
     }
         public final String getBrand() {
         return brand;
@@ -40,8 +45,39 @@ public abstract class Transport {
 //            this.isMoving = isMoving;
 //        }
 
+    public List<AutoMechanic> getAutoMechanic() {
+    return mechanics;
+}
+    public abstract void startMovement();
+    public abstract void stopMovement();
+
+    public abstract void printType();
+
+    public void addMechanic(AutoMechanic<?>... mechanics) {
+        this.mechanics.addAll(Arrays.asList(mechanics));
+    }
+
+    public void addDriver(Driver<?>... drivers) {
+        this.drivers.addAll(Arrays.asList(drivers));
+    }
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public List<AutoMechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public String getRequiredDriverLicenseCategory() {
+        return requiredDriverLicenseCategory;
+    }
+
     public void setRequiredDriverLicenseCategory(String requiredDriverLicenseCategory) {
         this.requiredDriverLicenseCategory = requiredDriverLicenseCategory;
+    }
+
+    public void setMechanics(List<AutoMechanic> mechanics) {
+        this.mechanics = mechanics;
     }
 
     public final String getModel() {
@@ -57,19 +93,15 @@ public abstract class Transport {
     }
 
     public boolean isMoving() {
-        return isMoving;
+        return true;
     }
 
-    public abstract void startMovement();
+    public abstract boolean runDiagnostics();
 
-    public abstract void stopMovement();
+    public abstract void performMaintenance();
 
-    public abstract void printType();
+    public abstract void fixTheCar();
 
-    public abstract void runDiagnostics();
-       public String getRequiredDriverLicenseCategory() {
-        return requiredDriverLicenseCategory;
-    }
 
 
     @Override

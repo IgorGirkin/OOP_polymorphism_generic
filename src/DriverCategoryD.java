@@ -22,5 +22,8 @@ public class DriverCategoryD extends Driver {
            System.out.println("Водитель " + getFullName() +" заправил автобус.");
     }
 
-
+    @Override
+    public String toString() {
+        return getFullName() + ", стаж вождения: "+getExperience()+ " лет, категория: "+getDriverLicenseType();
+    }
 }
