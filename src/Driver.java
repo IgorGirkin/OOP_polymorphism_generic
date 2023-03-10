@@ -78,13 +78,13 @@ public abstract class Driver<T extends Transport> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Driver driver = (Driver) o;
-        return hasDriverLicense == driver.hasDriverLicense && experience == driver.experience && Objects.equals(fullName, driver.fullName) && driverLicenseType.equals(driver.driverLicenseType);
+        Driver<?> driver = (Driver<?>) o;
+        return hasDriverLicense == driver.hasDriverLicense && experience == driver.experience && Objects.equals(fullName, driver.fullName) && Objects.equals(driverLicenseType, driver.driverLicenseType) && Objects.equals(autoMechanics, driver.autoMechanics);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fullName, hasDriverLicense, experience, driverLicenseType);
+        return Objects.hash(fullName, hasDriverLicense, experience, driverLicenseType, autoMechanics);
     }
 
     @Override

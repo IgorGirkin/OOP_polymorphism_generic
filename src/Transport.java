@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Transport implements Competing {
     private final String brand;
@@ -10,7 +7,7 @@ public abstract class Transport implements Competing {
     private boolean isMoving;
     private String requiredDriverLicenseCategory;
     private List<AutoMechanic> mechanics;
-    private final List<Driver> drivers = new ArrayList<>();
+    private Set<Driver> drivers = new HashSet<>();
 
     public Transport(String brand, String model, double engineVolume, boolean isMoving) {
 
@@ -57,12 +54,21 @@ public abstract class Transport implements Competing {
         this.mechanics.addAll(Arrays.asList(mechanics));
     }
 
-    public void addDriver(Driver<?>... drivers) {
-        this.drivers.addAll(Arrays.asList(drivers));
+   public void addDriver(Driver<?>... drivers) {
+    for (Driver<?> driver : drivers) {
+        if (!this.drivers.contains(driver)) {
+            this.drivers.add(driver);
+            System.out.println("Водитель " + driver.getFullName() + " добавлен в базу данных.");
+        } else {
+            System.out.println("Водитель " + driver.getFullName() + " уже есть в базе данных.");
+        }
     }
-    public List<Driver> getDrivers() {
+}
+
+    public Set<Driver> getDrivers() {
         return drivers;
     }
+
 
     public List<AutoMechanic> getMechanics() {
         return mechanics;
@@ -102,19 +108,21 @@ public abstract class Transport implements Competing {
 
     public abstract void fixTheCar();
 
-
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transport transport = (Transport) o;
-        return Double.compare(transport.engineVolume, engineVolume) == 0 && isMoving == transport.isMoving && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model);
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && isMoving == transport.isMoving && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && Objects.equals(requiredDriverLicenseCategory, transport.requiredDriverLicenseCategory) && Objects.equals(mechanics, transport.mechanics) && Objects.equals(drivers, transport.drivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, model, engineVolume, isMoving);
+        return Objects.hash(brand, model, engineVolume, isMoving, requiredDriverLicenseCategory, mechanics, drivers);
     }
 
     @Override
@@ -124,6 +132,9 @@ public abstract class Transport implements Competing {
                 ", model='" + model + '\'' +
                 ", engineVolume=" + engineVolume +
                 ", isMoving=" + isMoving +
+                ", requiredDriverLicenseCategory='" + requiredDriverLicenseCategory + '\'' +
+                ", mechanics=" + mechanics +
+                ", drivers=" + drivers +
                 '}';
     }
 }

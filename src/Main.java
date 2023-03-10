@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void service(Transport... transports) {
@@ -153,6 +155,25 @@ public class Main {
             kamaz.addDriver(slava);
             belaz.addDriver(dimaPirog);
             gazik.addDriver(aslambeck);
+            printsSeparator();
+
+            //по заданию эти водители в случае добавления
+            // в консоль выводиться не должны
+            liaz.addDriver(petrovich);
+            bmw.addDriver(kuzmich);
+            belaz.addDriver(dimaPirog);
+            liaz.addDriver(petrovich);
+            gazik.addDriver(aslambeck);
+
+
+
+            printsSeparator();
+
+//            for (Driver driver : transport.) {
+//    System.out.println(driver.getFullName());
+//}
+
+
 
             ServiceStation serviceStation = new ServiceStation();
             serviceStation.addCar(ladaGranta);
@@ -171,6 +192,10 @@ public class Main {
    for (Transport transport : transports) {
        printInfo(transport);
    }
+            ArrayList<String> driver = new ArrayList<>();
+            driver.add("Гриша Петренко");
+            driver.add("Кузмич");
+            driver.add("Евгений Петрович");
 
 }
     private static void printInfo(Transport transport) {
@@ -198,12 +223,6 @@ public class Main {
 //    }
 
 
-
-
-
-
-
-//
 //       printCarSpecification(ladaGranta);
 //        printsSeparator();
 //        printBusSpecification(kravzik);
